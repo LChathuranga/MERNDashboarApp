@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src"
+    },
+    // Absolute imports stars in src directory 
+    "include": ["src"]
+}
