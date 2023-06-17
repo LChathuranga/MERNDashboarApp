@@ -11,7 +11,9 @@ import clientRoutes from './routes/client.js';
 import generalRoutes from './routes/general.js';
 import managementRoutes from './routes/management.js';
 import salesRoutes from './routes/sales.js';
-import { error } from 'console';
+
+import { dataUser } from './data/index.js';
+import User from './models/User.js';
 
 // CONFIGURATIONS
 dotenv.config();
@@ -35,5 +37,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    app.listen(PORT, (() => console.log(`Server started on Port ${PORT}`)))
+    app.listen(PORT, (() => console.log(`Server started on Port ${PORT}`)));
+    //Only add this one time
+    User.insertMany(dataUser);
 }).catch((error) => console.log(`${error}, Did not connected`));
