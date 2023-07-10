@@ -2,6 +2,7 @@ import Product from '../models/Product.js';
 import ProductStat from '../models/ProductStat.js';
 import Transaction from '../models/Transaction.js';
 import User from '../models/User.js';
+import getCountryIso3 from "country-iso-2-to-3";
 
 export const getProducts = async (req, res) => {
     try {
@@ -70,7 +71,15 @@ export const getTransactions = async (req, res) => {
             // If you simply need a case-insensitive search and don't require dynamic 
             // pattern generation, the name: {$regex: search, $options: "i"} syntax can be 
             // used for a more concise query condition.
-            name: { $regex: search, $options: 'i' }
+            $or: [
+                //     const search = "apple";
+                // const query = { userId: { $regex: new RegExp(search, "i") } };
+                // This will match documents where the "userId" field contains "apple" 
+                // in any case, such as "apple123", "bigApple", or "APPLEseeds".
+
+                { cost: { $regex: new RegExp(search, "i") } },
+                { userId: { $regex: new RegExp(search, "i") } },
+            ]
         })
         res.status(200).json({
             transactions,
@@ -79,5 +88,31 @@ export const getTransactions = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: error.message })
+    }
+}
+
+export const getGeoGraphy = async (req, res) => {
+    try {
+        const users = await User.find();
+        const mappedLocations = users.reduce((acc, {country}) => {
+            const countryISO3 = getCountryIso3(country);
+            if (!acc[countryISO3]) {
+                acc[countryISO3] = 0;
+            }
+            acc[countryISO3]++;
+            return acc;
+        }, {})
+
+        // Here mappedLocations like { "USA": 5, "UK": 10 } Object
+        // Object.entries convert it to [["USA", 5], ["UK", 10]]
+        const formattedLocations = Object.entries(mappedLocations).map(
+            ([country, count]) => {
+                return {id: country, value: count}
+            }
+        )
+
+        res.status(200).json(formattedLocations);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
     }
 }

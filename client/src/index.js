@@ -16,6 +16,7 @@ const store = configureStore({
   },
   middleware: (getDefault) => getDefault().concat(api.middleware), 
 });
+// This need to configure while if w use redux toolkit
 setupListeners(store.dispatch);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

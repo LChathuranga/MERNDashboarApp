@@ -24,7 +24,7 @@ const Transactions = () => {
     search,
   });
 
-  console.log(data);
+  console.log("data", data);
 
   const columns = [
     {
