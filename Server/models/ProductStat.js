@@ -19,8 +19,7 @@ const ProductStatSchema = mongoose.Schema({
             totalUnites: Number
         }
     ]
-
-},{timestamps: true});
+}, { timestamps: true });
 
 const ProductStat = mongoose.model("ProductStat", ProductStatSchema);
 export default ProductStat;

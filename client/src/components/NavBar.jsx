@@ -22,7 +22,7 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import { setMode } from "state";
-import profileImage from "assets/profile.jpg";
+import profileImage from "assets/profile.webp";
 
 function NavBar({ user, isSidebarOpen, setIsSidebarOpen }) {
   const dispatch = useDispatch();

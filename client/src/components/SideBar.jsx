@@ -7,9 +7,7 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  ListitemText,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -19,7 +17,6 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  shoppingCartOutlined,
   Groups2Outlined,
   ReceiptLongOutlined,
   PublicOutlined,
@@ -31,7 +28,7 @@ import {
   PieChartOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import profileImage from "assets/profile.jpg";
+import profileImage from "assets/profile.webp";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 
