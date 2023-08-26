@@ -13,10 +13,10 @@ body,
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #7a7f9d;
+  background: #a1b2b0;
 }
 ::-webkit-scrollbar-thumb{
-  background: #21295c;
+  background: #082b28;
 }
 ::-webkit-scrollbar-thumb:hover{
   background: #21295c;
