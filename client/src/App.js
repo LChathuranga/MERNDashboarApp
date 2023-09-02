@@ -14,8 +14,14 @@ import Monthly from "scenes/monthly";
 import Overview from "scenes/overview";
 import Performance from "scenes/performance";
 import Products from "scenes/products";
+import Login from 'scenes/login';
 import Transactions from "scenes/transactions";
 import { themeSettings } from "theme";
+import UnAuthorized from "scenes/unAuthorized";
+import UserProfile from "scenes/userProfile";
+import UserRoute from "components/protectRoutes/UserRoute";
+import AdminRoute from "components/protectRoutes/AdminRoute";
+import SuperAdminRoute from "components/protectRoutes/SuperAdminRoute";
 
 function App() {
 
@@ -37,19 +43,32 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/unAuthorized" element={<UnAuthorized />} />
             <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/geography" element={<Geography />} />
-              <Route path="/overview" element={<Overview />} />
-              <Route path="/daily" element={<Daily />} />
-              <Route path="/monthly" element={<Monthly />} />
-              <Route path="/breakdown" element={<Breakdown />} />
-              <Route path="/admin" element={<Admin/>} />
-              <Route path="/performance" element={<Performance/>}/>
+
+              <Route element={<UserRoute/>}>
+                <Route path="/user-profile" element={<UserProfile />} />
+              </Route>
+
+              <Route element={<AdminRoute/>}>
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/geography" element={<Geography />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/overview" element={<Overview />} />
+              </Route>
+              
+              <Route element={<SuperAdminRoute/>}>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/daily" element={<Daily />} />
+                <Route path="/monthly" element={<Monthly />} />
+                <Route path="/breakdown" element={<Breakdown />} />
+                <Route path="/performance" element={<Performance />} />
+              </Route>
+
             </Route>
           </Routes>
         </ThemeProvider>

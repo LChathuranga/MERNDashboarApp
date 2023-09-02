@@ -21,7 +21,7 @@ import {
   Search,
   SettingsOutlined,
 } from "@mui/icons-material";
-import { setMode } from "state";
+import { logout, setMode } from "state";
 import profileImage from "assets/profile.webp";
 
 function NavBar({ user, isSidebarOpen, setIsSidebarOpen }) {
@@ -35,6 +35,9 @@ function NavBar({ user, isSidebarOpen, setIsSidebarOpen }) {
     setAnchorEl(event);
   };
   const handleClose = () => setAnchorEl(null);
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <AppBar
@@ -120,7 +123,7 @@ function NavBar({ user, isSidebarOpen, setIsSidebarOpen }) {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

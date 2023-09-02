@@ -44,6 +44,13 @@ export const api = createApi({
         getDashboard: build.query({
             query: () => "general/dashboard",
             providesTags: ["Dashboard"]
+        }),
+        login: build.mutation({
+            query: (data) => ({
+                url: "auth/login",
+                method: "POST",
+                body: data
+            })
         })
     })
 })
@@ -57,5 +64,6 @@ export const {
     useGetSalesQuery,
     useGetAdminsQuery,
     useGetUserPerformanceQuery,
-    useGetDashboardQuery
+    useGetDashboardQuery,
+    useLoginMutation
 } = api;
