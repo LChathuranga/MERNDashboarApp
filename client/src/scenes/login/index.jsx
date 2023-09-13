@@ -11,31 +11,55 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "state/api";
 import { setUserCredentials } from "state";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [rememberMe, setRememberMe] = useState(false);
   const [login, { isLoading }] = useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const loggedData = await login({
-      email: data.get("email"),
-      password: data.get("password"),
-    }).unwrap();
-    if (loggedData) {
-      dispatch(setUserCredentials({ ...loggedData }));
-      navigate('/dashboard');
+    try {
+      const loggedData = await login({
+        email: data.get("email"),
+        password: data.get("password"),
+      }).unwrap();
+      if (loggedData) {
+        toast.success("Authentication Success!");
+        dispatch(setUserCredentials({ ...loggedData }));
+        if (loggedData.role === "superadmin") {
+          navigate("/dashboard");
+        }
+        else if (loggedData.role === "admin") {
+          navigate("/customers");
+        }
+      }
+    } catch (error) {
+      toast.error(`${error.status}, ${error.data.message}`);
     }
   };
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("rememberedEmail");
+    const savedPassword = localStorage.getItem("rememberedPassword");
+
+    if (rememberMe && savedEmail && savedPassword) {
+      // Pre-fill the email and password fields
+      document.getElementById("email").value = savedEmail;
+      document.getElementById("password").value = savedPassword;
+    }
+  }, [rememberMe]);
+
   return (
     <>
       <Box
@@ -92,7 +116,14 @@ const Login = () => {
                 autoComplete="current-password"
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={
+                  <Checkbox
+                    value="remember"
+                    color="primary"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
+                }
                 label="Remember me"
               />
               <Button

@@ -11,7 +11,6 @@ const AdminRoute = () => {
   }
   
   if (!allowedRoles.includes(userData.role)) {
-    console.log("admin2");
     return <Navigate to="/unauthorized" replace />;
   }
 

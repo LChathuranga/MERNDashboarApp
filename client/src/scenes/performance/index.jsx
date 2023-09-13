@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useGetUserPerformanceQuery } from "state/api";
 
 const Performance = () => {
-  const userId = useSelector((state) => state.global.userId);
+  const userId = useSelector((state) => state.global.userData?._id);
   const theme = useTheme();
   const { data, isLoading } = useGetUserPerformanceQuery(userId);
   console.log("Data:", data);

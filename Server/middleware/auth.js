@@ -3,7 +3,6 @@ import User from '../models/User.js';
 
 export const protect = (allowedRoles) => async (req, res, next) => {
     let token;
-    console.log(req.cookies);
     if (req.cookies && req.cookies.jwt) {
         token = req.cookies.jwt;
     } else {

@@ -12,7 +12,7 @@ import clientRoutes from './routes/client.js';
 import generalRoutes from './routes/general.js';
 import managementRoutes from './routes/management.js';
 import salesRoutes from './routes/sales.js';
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 
 // import { dataUser, dataProduct, dataProductStat, dataTransaction, dataOverallStat, dataAffiliateStat } from './data/index.js';
 // import User from './models/User.js';
@@ -24,14 +24,19 @@ import cookieParser from 'cookie-parser';
 // CONFIGURATIONS
 dotenv.config();
 const app = express();
+app.use(
+    cors({
+        origin: 'http://localhost:3000', 
+        credentials: true,
+    })
+);
+app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(cors({ origin: '*' }));
 
 // ROUTES
 app.use('/auth', authRoutes);

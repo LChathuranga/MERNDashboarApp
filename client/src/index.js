@@ -14,7 +14,7 @@ const store = configureStore({
     global: globalReducer,
     [api.reducerPath]: api.reducer,
   },
-  middleware: (getDefault) => getDefault().concat(api.middleware), 
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 });
 // This need to configure while if w use redux toolkit
 setupListeners(store.dispatch);

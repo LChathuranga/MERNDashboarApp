@@ -9,9 +9,8 @@ import { useGetUserQuery } from "state/api";
 function Layout() {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const userId = useSelector((state) => state.global.userId);
+  const userId = useSelector((state) => state.global.userData?._id);
   const { data } = useGetUserQuery(userId);
-console.log("userData",useSelector((state) => state.global.userData));
   return (
     <Box height="100%" width="100%" display={isNonMobile ? "flex" : "block"}>
       <SideBar

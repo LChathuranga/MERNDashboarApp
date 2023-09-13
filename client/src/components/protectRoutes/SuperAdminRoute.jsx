@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const SuperAdminRoute = () => {
   const userData = useSelector((state) => state.global.userData);
-
+console.log(userData);
   if (!userData) {
     return <Navigate to="/login" replace />;
   }

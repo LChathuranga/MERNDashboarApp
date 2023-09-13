@@ -22,6 +22,8 @@ import UserProfile from "scenes/userProfile";
 import UserRoute from "components/protectRoutes/UserRoute";
 import AdminRoute from "components/protectRoutes/AdminRoute";
 import SuperAdminRoute from "components/protectRoutes/SuperAdminRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -39,6 +41,7 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="app">
+      <ToastContainer />
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -54,15 +57,15 @@ function App() {
               <Route element={<AdminRoute/>}>
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/transactions" element={<Transactions />} />
                 <Route path="/geography" element={<Geography />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/overview" element={<Overview />} />
               </Route>
               
               <Route element={<SuperAdminRoute/>}>
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/overview" element={<Overview />} />
                 <Route path="/daily" element={<Daily />} />
                 <Route path="/monthly" element={<Monthly />} />
                 <Route path="/breakdown" element={<Breakdown />} />
